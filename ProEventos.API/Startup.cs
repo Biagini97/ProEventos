@@ -54,6 +54,9 @@ namespace ProEventos.API
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseCors(x => x.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {
