@@ -1,18 +1,24 @@
 <h2>Eventos</h2>
 <hr>
 
-<form action="" class="form-inline">
+<div class="form-inline">
   <div class="form-group mb-2">
-    <input type="text" class="form-control mr-2" placeholder="Buscar">
-    <button class="btn btn-outline-sucsses">Buscar</button>
+    <label class="mr-2">Filtro:</label>
+    <input type="text"
+    class="form-control mr-2"
+    placeholder="Buscar"
+    [(ngModel)]="filtroLista"
+    >
   </div>
-</form>
-
+</div>
+<!-- <h3>Filtro:{{filtroLista}}</h3> -->
 <table class="table  table-striped">
   <thead class="table-dark">
     <tr>
+      <th>
+        <button class="btn btn-outline-light btn-sm" (click)="isCollapsed = !isCollapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">{{isCollapsed ? "Exibir" : "Ocultar"}}</button>
+      </th>
       <th>#</th>
-      <th>Imagem</th>
       <th>Tema</th>
       <th>Local</th>
       <th>Data</th>
@@ -22,21 +28,24 @@
     </tr>
   </thead>
     <tbody *ngIf="eventos && eventos.length">
-        <tr *ngFor="let evento of eventos">
-          <td>{{evento.eventoId}}</td>
-          <td><img
+        <tr *ngFor="let evento of eventosFiltrados">
+          <td><img class="collapse navbar-collapse" [collapse]="isCollapsed" [isAnimated]="true" id="navbarNav"
             src="/assets/{{evento.imagemUrl}}"
             alt=""
             [style.width.px]="widthImag"
             [style.margin.px]="margImg"
             >
           </td>
+          <td>{{evento.eventoId}}</td>
           <td>{{evento.tema}}</td>
           <td>{{evento.local}}</td>
-          <td>{{evento.lote}}</td>
           <td>{{evento.dataEvento}}</td>
           <td>{{evento.qtdpessoas}}</td>
           <td>{{evento.lote}}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
+            <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+          </td>
         </tr>
     </tbody>
     <tfoot *ngIf="!eventos.length">
